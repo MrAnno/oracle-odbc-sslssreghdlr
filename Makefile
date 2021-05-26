@@ -9,6 +9,8 @@ LDFLAGS += $(shell pkg-config --libs-only-L ${PKG_CONFIG_ODBC_NAME})
 LDFLAGS += $(shell pkg-config --libs-only-other ${PKG_CONFIG_ODBC_NAME})
 LDLIBS += $(shell pkg-config --libs-only-l ${PKG_CONFIG_ODBC_NAME})
 
+LDLIBS := $(if $(LDLIBS),$(LDLIBS),-lodbc)
+
 .PHONY: build
 build: oracle-odbc-sslssreghdlr
 
