@@ -11,7 +11,7 @@
 
 #define NUM_OF_THREADS 2
 #define CONNECTION_TIMEOUT 5
-#define TEST_SQL_QUERY "SELECT * FROM \"test_table\""
+#define TEST_SQL_QUERY "SELECT * FROM test_table"
 
 static const char* connection_string;
 
