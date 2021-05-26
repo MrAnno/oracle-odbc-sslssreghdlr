@@ -16,4 +16,4 @@ build: oracle-odbc-sslssreghdlr
 
 .PHONY: clean
 clean:
-	-rm oracle-odbc-sslssreghdlr
+	-rm -f oracle-odbc-sslssreghdlr
