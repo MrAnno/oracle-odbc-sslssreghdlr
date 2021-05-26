@@ -1,16 +1,20 @@
-FROM ubuntu:20.04
+FROM archlinux:latest
 
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y \
-  curl \
-  unzip \
-  build-essential \
-  pkg-config \
-  unixodbc-dev \
-  libaio1 \
-  gdb \
-  vim \
-  && rm -rf /var/lib/apt/lists/*
+RUN pacman -Syu --noconfirm curl unzip base-devel unixodbc libaio gdb vim
+
+#FROM ubuntu:20.04
+
+#ENV DEBIAN_FRONTEND=noninteractive
+# RUN apt-get update && apt-get install -y \
+#   curl \
+#   unzip \
+#   build-essential \
+#   pkg-config \
+#   unixodbc-dev \
+#   libaio1 \
+#   gdb \
+#   vim \
+#   && rm -rf /var/lib/apt/lists/*
 
 RUN curl -LO https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-basic-linux.x64-21.1.0.0.0.zip \
   && curl -LO https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-odbc-linux.x64-21.1.0.0.0.zip \
