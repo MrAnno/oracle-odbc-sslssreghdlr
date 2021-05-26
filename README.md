@@ -80,3 +80,33 @@ https://github.com/MrAnno/oracle-odbc-sslssreghdlr/releases/download/v1.0.0/orac
 - There is no shared resource between threads, only `connection_string` is shared.
 - Using a shared `SQLHENV` across threads, or separate table names will make no difference.
 - Removing `SQLSetStmtAttr(SQL_ATTR_QUERY_TIMEOUT)` from the application seems to be a workaround.
+
+## Docker reproduction environment (requires Docker and Docker Compose)
+
+1. Log into container-registry.oracle.com (https://docs.oracle.com/cd/E37670_01/E75728/html/oracle-registry-server.html):
+
+   `docker login container-registry.oracle.com`
+
+2. Start Oracle Database:
+
+   `docker-compose up oracle-db`
+
+   Wait until it's ready (`DATABASE IS READY TO USE!`)
+
+3. Start reproducer application:
+
+   `docker-compose up oracle-odbc-sslssreghdlr`
+
+   Wait until it gets stuck
+
+You can attach `gdb` to the stuck process, for example:
+
+```
+$ docker-compose exec --privileged oracle-odbc-sslssreghdlr bash
+$ ps -A
+PID TTY          TIME CMD
+1383 ?        00:00:00 oracle-odbc-ssl
+
+$ gdb -p 1383 /oracle-odbc-sslssreghdlr/oracle-odbc-sslssreghdlr
+(gdb) thread apply all bt
+```

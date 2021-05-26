@@ -1,0 +1,30 @@
+version: '3.2'
+services:
+  oracle-db:
+    image: container-registry.oracle.com/database/enterprise:19.3.0.0
+    environment:
+      - ORACLE_SID=TESTDB
+      - ORACLE_PWD=test_passwd
+    volumes:
+      - ./docker/oracle-db-config/setup:/opt/oracle/scripts/setup
+    networks:
+      - oracle-test-network
+    ports:
+      - "1521:1521"
+    shm_size: "4g"
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  oracle-odbc-sslssreghdlr:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    volumes:
+      - ./:/oracle-odbc-sslssreghdlr
+    command: /oracle-odbc-sslssreghdlr/docker/oracle-odbc-sslssreghdlr.sh
+    networks:
+      - oracle-test-network
+
+networks:
+  oracle-test-network:
