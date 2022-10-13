@@ -1,5 +1,10 @@
 # Oracle ODBC driver hangs in sslssrecursivemx_acquire()
 
+**This issue has been reported to Oracle paid support 2 years ago.
+As they refused to acknowledge the existence of the bug even after sharing the complete reproduction environment, I'm changing the visibility of this repository to public.**
+
+----
+
 When `SQL_ATTR_QUERY_TIMEOUT` is set, multi-threaded unixODBC applications may
 hang on `sslssreghdlr`.
 
